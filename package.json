@@ -2,7 +2,7 @@
   "name": "eaterai",
   "version": "1.0.0",
   "description": "A classic arcade-style game where you eat dots while dodging intelligent AI robots that learn your patterns!",
-  "homepage": "https://yourusername.github.io/eaterai",
+  "homepage": "https://doribd.github.io/eaterai",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
