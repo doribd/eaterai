@@ -644,4 +644,101 @@ const EaterAI = () => {
   // High scores screen
   if (gameState === 'scores') {
     return (
-      <div className="flex flex-col items-center justify-center min-h
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-8">
+        <h2 className="text-4xl font-bold mb-8">High Scores</h2>
+        
+        <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md">
+          {highScores.map((score, index) => (
+            <div key={index} className="flex justify-between items-center py-2 border-b border-gray-700 last:border-b-0">
+              <span className="text-lg">{index + 1}. {score.name}</span>
+              <div className="text-right">
+                <div className="text-lg font-bold">{score.score}</div>
+                <div className="text-sm text-gray-400">Level {score.level}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <button
+          onClick={() => setGameState('menu')}
+          className="mt-8 px-6 py-3 bg-gray-600 hover:bg-gray-700 rounded-lg transition-colors"
+        >
+          Back to Menu
+        </button>
+      </div>
+    );
+  }
+  
+  // Game over screen
+  if (gameState === 'gameOver') {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-8">
+        <h2 className="text-4xl font-bold mb-4 text-red-500">Game Over!</h2>
+        <p className="text-2xl mb-2">Final Score: {gameData.score}</p>
+        <p className="text-xl mb-8">Level Reached: {gameData.level}</p>
+        
+        <div className="flex gap-4">
+          <button
+            onClick={() => setGameState('menu')}
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+          >
+            Main Menu
+          </button>
+          
+          <button
+            onClick={startNewGame}
+            className="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg transition-colors"
+          >
+            <RotateCcw size={20} />
+            Play Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+  
+  // Game screen
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4">
+      <div className="mb-4 flex gap-8 text-lg">
+        <div>Score: {gameData.score}</div>
+        <div>Level: {gameData.level}</div>
+        <div>Lives: {gameData.lives}</div>
+        <div>Progress: {Math.round((gameData.eatenDots / gameData.totalDots) * 100)}%</div>
+        {gameData.isPoweredUp && (
+          <div className="text-green-400 font-bold animate-pulse">POWERED UP!</div>
+        )}
+      </div>
+      
+      <div
+        className="relative bg-gray-800 border-2 border-gray-600"
+        style={{
+          width: BOARD_WIDTH * CELL_SIZE,
+          height: BOARD_HEIGHT * CELL_SIZE
+        }}
+      >
+        {renderBoard()}
+      </div>
+      
+      <div className="mt-4 text-center">
+        <p className="text-sm text-gray-400">Use arrow keys to move</p>
+        <p className="text-xs text-gray-500 mt-2">
+          Yellow dots = points • Green orbs = power-ups • Red robots = enemies
+        </p>
+      </div>
+      
+      <button
+        onClick={() => setGameState('menu')}
+        className="mt-4 px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded transition-colors"
+      >
+        Back to Menu
+      </button>
+    </div>
+  );
+};
+
+function App() {
+  return <EaterAI />;
+}
+
+export default App;
